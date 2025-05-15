@@ -85,11 +85,11 @@ Focus Points for Tampering Detection:
 
 #### 🖼️ OCR Extracted Text Images
 
-**Original Document OCR Output:**  
-![OCR Original](https://github.com/SakshamJain9999/Tamper-Detection/blob/main/Results/Extract%20Text/original_text.txt)
-
+**Original Document OCR Output:** 
+- [Original OCR Text](https://github.com/SakshamJain9999/Tamper-Detection/blob/main/Results/Extract%20Text/original_text.txt)
+- 
 **Tampered Document OCR Output:**  
-![OCR Tampered](https://github.com/SakshamJain9999/Tamper-Detection/blob/main/Results/Extract%20Text/tampered_text.txt)
+- [Tampered OCR Text](https://github.com/SakshamJain9999/Tamper-Detection/blob/main/Results/Extract%20Text/tampered_text.txt)
 
 #### 🖼️ Text Difference Visualization
 
