@@ -1,100 +1,109 @@
 # Tamper Detection in Academic Documents
 
-## Introduction
+## 1. Introduction
 
-In an increasingly digital academic ecosystem, verifying the authenticity of official documents is crucial to combat fraudulent degrees and certifications. This project presents a prototype system for **detecting tampering in academic documents** (degrees, transcripts, certificates) using:
+In an increasingly digital academic ecosystem, verifying the authenticity of official documents is crucial to combat fraudulent degrees and certifications. This project presents a prototype system for detecting tampering in academic documents (degrees, transcripts, certificates) using a combination of PDF metadata inspection, layout similarity comparison, and OCR-based text extraction.
 
-- PDF metadata inspection  
-- Layout similarity comparison using SSIM  
-- OCR-based text extraction
-
-The system supports detection of unauthorized modifications and flags discrepancies between original and tampered versions.
+The system supports the detection of unauthorized modifications and provides alerts when discrepancies are found between original and tampered versions.
 
 ---
 
-## Methodology
+## 2. Methodology
 
-### 1. Document Preparation
+### 2.1 Document Preparation
 
-Mock datasets were created with both original and tampered versions of:
+We manually created mock datasets with both original and tampered PDF versions of:
 
 - Degree Certificate  
 - Academic Transcript  
 - Course Completion Certificate  
 
-**Tampering operations included:**
+Tampering operations included:
 
 - Modifying names, GPA, course titles, and dates  
 - Changing layout (e.g., fake seals, institution names)  
-- Altering metadata (e.g., software used, timestamps)
+- Altering metadata (modification dates or software used)  
 
 ---
 
-### 2. Metadata Analysis
+### 2.2 Metadata Analysis
 
-**Tool Used:** `PyPDF2`
+**Tool Used:** `PyPDF2`  
+We extracted and analyzed key PDF metadata fields such as:
 
-Metadata fields extracted and compared:
-- `/CreationDate`  
-- `/ModDate`  
-- `/Producer`  
+- `/CreationDate`
+- `/ModDate`
+- `/Producer`
 
-**Heuristic Rule:**  
-If `/ModDate` > `/CreationDate`, document is flagged as potentially modified. Suspicious producers (e.g., “Fake PDF Editor”) are also treated as red flags.
+**Heuristic Used:**  
+If `/ModDate` > `/CreationDate`, the document is flagged as potentially modified. Suspicious `/Producer` values like “Fake PDF Editor” are also flagged.
 
-#### Result Image – Metadata Analysis
+#### 🖼️ Result Image – Metadata Analysis
 
-![Metadata Result](results/metadata_result.png)
-
----
-
-### 3. Layout Comparison via SSIM
-
-**Tools:** `pdf2image`, `OpenCV`, `skimage.metrics`
-
-**Process:**
-1. Convert original and tampered PDFs to images (first page only)  
-2. Convert to grayscale  
-3. Compare using Structural Similarity Index (SSIM)
-
-**Threshold:**  
-SSIM score < `0.95` implies layout inconsistency (e.g., fake seals, logo changes).
-
-#### Result Image – Layout Comparison
-
-![Layout SSIM Result](results/layout_ssim_result.png)
+![Metadata Analysis](https://github.com/SakshamJain9999/Tamper-Detection/blob/main/Results/MetaData%20Analysis.png)
 
 ---
 
-### 4. OCR-Based Text Extraction
+### 2.3 Layout Comparison via SSIM
 
-**Tools:** `pytesseract`, `pdf2image`
+**Tools Used:** `pdf2image`, `OpenCV`, `skimage.metrics`  
 
 **Steps:**
-1. Convert PDF pages to high-resolution images  
-2. Extract text using Tesseract OCR  
-3. Compare original vs tampered text using `difflib` or fuzzy matching  
+- Convert the first page of both PDFs into images  
+- Convert the images to grayscale  
+- Use Structural Similarity Index (SSIM) to compare the layout  
+- A threshold of SSIM score < 0.95 indicates layout inconsistencies  
 
-**Tamper Detection Focus:**
-- Names (e.g., "Alex Carter" → "Alex Smith")  
-- Altered grades, course titles, or GPA  
-- Changed issue dates  
+#### 🖼️ Converted Images – Before Layout Comparison
 
-#### Result Image – OCR Comparison
+**Original Document (Image):**  
+![Original PDF Image](https://github.com/SakshamJain9999/Tamper-Detection/blob/main/Results/Pdf%20to%20Img/degree_original.png)
 
-![OCR Result](results/ocr_result.png)
+**Tampered Document (Image):**  
+![Tampered PDF Image](https://github.com/SakshamJain9999/Tamper-Detection/blob/main/Results/Pdf%20to%20Img/degree_tampered.png)
+
+#### 🖼️ Layout SSIM Comparison Result
+
+![Layout SSIM Result](https://github.com/SakshamJain9999/Tamper-Detection/blob/main/Results/Layout%20Compare.png)
 
 ---
 
-## Conclusion
+### 2.4 OCR-Based Text Extraction
 
-This system effectively detects tampering in academic PDFs through a multi-pronged approach—analyzing metadata, layout similarity, and extracted text. While the prototype performs well in a controlled setting, real-world deployment may require:
+**Tools Used:** `pytesseract`, `pdf2image`  
 
-- Handling noisy scans  
-- Scaling to diverse document types  
-- Enhancing UI and automation  
+**Steps:**
+- Convert each PDF page into an image  
+- Use OCR (Tesseract) to extract the text  
+- Compare the extracted text using Python’s `difflib` or manual inspection
 
-With further improvements, this tool can serve academic institutions, HR teams, and legal departments in verifying the authenticity of documents.
+Focus Points for Tampering Detection:
+- Changed names (e.g., “Alex Carter” → “Alex Smith”)  
+- Added or removed courses  
+- Altered GPA or grades  
+- Modified dates or institutions  
+
+#### 🖼️ OCR Extracted Text Images
+
+**Original Document OCR Output:**  
+![OCR Original](https://github.com/SakshamJain9999/Tamper-Detection/blob/main/Results/Extract%20Text/original_text.txt)
+
+**Tampered Document OCR Output:**  
+![OCR Tampered](https://github.com/SakshamJain9999/Tamper-Detection/blob/main/Results/Extract%20Text/tampered_text.txt)
+
+#### 🖼️ Text Difference Visualization
+
+![Text Diff Result](https://github.com/SakshamJain9999/Tamper-Detection/blob/main/Results/Text%20Diff.png)
+
+---
+
+## 3. Conclusion
+
+The developed system demonstrates an effective approach for detecting tampering in academic documents using open-source tools. It covers multiple layers of inspection—metadata, layout, and content—which complement each other.
+
+While the prototype works well in a controlled environment, real-world deployment will require handling diverse file types, noisy scans, and adversarial tampering techniques.
+
+With improvements in automation, UI, and tamper classification, this solution can serve as a valuable tool for academic verification offices and recruitment agencies.
 
 ---
 
