@@ -1,6 +1,6 @@
 # Tamper Detection in Academic Documents
 
-## 1. Introduction
+## Introduction
 
 In an increasingly digital academic ecosystem, verifying the authenticity of official documents is crucial to combat fraudulent degrees and certifications. This project presents a prototype system for detecting tampering in academic documents (degrees, transcripts, certificates) using a combination of PDF metadata inspection, layout similarity comparison, and OCR-based text extraction.
 
@@ -8,9 +8,9 @@ The system supports the detection of unauthorized modifications and provides ale
 
 ---
 
-## 2. Methodology
+## Methodology
 
-### 2.1 Document Preparation
+### A) Document Preparation
 
 We manually created mock datasets with both original and tampered PDF versions of:
 
@@ -26,7 +26,7 @@ Tampering operations included:
 
 ---
 
-### 2.2 Metadata Analysis
+### B) Metadata Analysis
 
 **Tool Used:** `PyPDF2`  
 We extracted and analyzed key PDF metadata fields such as:
@@ -44,7 +44,7 @@ If `/ModDate` > `/CreationDate`, the document is flagged as potentially modified
 
 ---
 
-### 2.3 Layout Comparison via SSIM
+### C) Layout Comparison via SSIM
 
 **Tools Used:** `pdf2image`, `OpenCV`, `skimage.metrics`  
 
@@ -87,7 +87,7 @@ Focus Points for Tampering Detection:
 
 **Original Document OCR Output:** 
 - [Original OCR Text](https://github.com/SakshamJain9999/Tamper-Detection/blob/main/Results/Extract%20Text/original_text.txt)
-- 
+
 **Tampered Document OCR Output:**  
 - [Tampered OCR Text](https://github.com/SakshamJain9999/Tamper-Detection/blob/main/Results/Extract%20Text/tampered_text.txt)
 
@@ -97,7 +97,7 @@ Focus Points for Tampering Detection:
 
 ---
 
-## 3. Conclusion
+## Conclusion
 
 The developed system demonstrates an effective approach for detecting tampering in academic documents using open-source tools. It covers multiple layers of inspection—metadata, layout, and content—which complement each other.
 
