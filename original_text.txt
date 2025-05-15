@@ -1,0 +1,11 @@
+
+--- Page 1 ---
+SAMPLE TRANSCRIPT
+
+Title: Academic Transcript
+Name: Alex Carter
+Gpa: 3.8
+Courses: ['Marketing
+Principles: A', "Business
+Ethics: B+’, 'Financial
+Accounting: A’|
